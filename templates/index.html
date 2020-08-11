@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Lab 9 - Fun with APIs - Group 18</title>
+{% endblock %}
+
+{% block body %}
+<div>
+    <h1 style="text-align: center">Fun with APIs</h1>
+    <h4 style="text-align: center">In this web application, the user can search for a city and the system will provide
+        information about the current weather conditions, as well as general information about the city. For the weather
+        part, the application connects in the backend to the OpenWeatherMap API. To get general information about the
+        city, it connects to the Wikipedia API.</h4>
+</div>
+<div class="content">
+    <h4 style="text-align: center">User documentation (how to use it):</h4>
+    <ul style="list-style-type:disc;">
+        <li>Go to <a href="/weather" target="_blank">this page</a>.</li>
+        <li>Enter your search term (a city name) in the text box and click on the "Search" button.</li>
+        <li>If the APIs can find the city, the page will display information about the weather in there and some general
+            information (a summary) from Wikipedia, with a link to the entire article.
+        </li>
+        <li>If not found, an error should be displayed.</li>
+        <li>Hint: use the combination "&lt;city name, country code&gt;" for more accurate results. E.g.: Rome, IT</li>
+    </ul>
+</div>
+<div class="content">
+    <h4 style="text-align: center">Final Note:</h4>
+    <p>
+        For the LOG entries/file containing the transactions with the APIs, please check the source codes uploaded with
+        the assignment in Blackboard (ZIP file). The name of the log file is <b>fun_with_api.log</b>, in the root of the
+        project structure.
+    </p>
+</div>
+{% endblock %}

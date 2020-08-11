@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Weather and General Information</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Weather and General Information</h1>
+    {% if observation is not none %}
+    <h3 style="text-align: center">Information for {{ observation.get_location().get_name() }},
+        {{ observation.get_location().get_country() }}</h3>
+    {% elif owm_error_message %}
+    <h3 style="text-align: center">The search couldn't find the city. Please try again.</h3>
+    {% else %}
+    <h3 style="text-align: center">Enter the name of the City you want to search for and click on the button.</h3>
+    {% endif %}
+
+    <div class="form" style="text-align: center">
+        <form action="/weather" method="POST">
+            <input type="text" name="city_name" id="city_name">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <br/>
+
+    {% if observation is not none %}
+    <table>
+        <tr>
+            <td>Current status</td>
+            <td>{{ observation.get_weather().get_status() }}</td>
+        </tr>
+        <tr>
+            <td>Detailed status</td>
+            <td>{{ observation.get_weather().get_detailed_status() }}</td>
+        </tr>
+        <tr>
+            <td>Temperature (C)</td>
+            <td>{{ observation.get_weather().get_temperature(unit='celsius')['temp'] }}</td>
+        </tr>
+        <tr>
+            <td>Cloud coverage (%)</td>
+            <td>{{ observation.get_weather().get_clouds() }}</td>
+        </tr>
+        <tr>
+            <td>Wind speed (km/h)</td>
+            <td>{{ observation.get_weather().get_wind()['speed'] }}</td>
+        </tr>
+        <tr>
+            <td>Humidity (%)</td>
+            <td>{{ observation.get_weather().get_humidity() }}</td>
+        </tr>
+    </table>
+    <small>Information provided by: OpenWeatherMap API</small>
+    {% else %}
+    <table>
+    </table>
+    {% endif %}
+
+    <br/>
+    {% if (not wiki_summary) and ((owm_error_message) or (wiki_error_message) or (invalid_input)) %}
+    <div style="text-align: center">
+        <p>Something wen't wrong: {{ owm_error_message }} {{ wiki_error_message }} {{ invalid_input }}</p>
+    </div>
+    {% endif %}
+
+    <br/>
+    {% if wiki_summary %}
+    <div style="text-align: center">
+        <h3>From Wikipedia:</h3>
+        <p>{{ wiki_summary }}</p>
+        <p>Read more at: <a href="{{ wiki_url }}" target="_blank">Wikipedia page</a></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
