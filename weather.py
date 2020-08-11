@@ -12,7 +12,7 @@ the_logger = logger.get_logger(__name__)
 weather_page = Blueprint('weather_page', __name__, template_folder='templates')
 "The blueprint (sub-component) to be referenced by the main module (app.py)"
 
-owm = pyowm.OWM('8048605ff47ae7c7249dbcf09736aa7f')
+owm = pyowm.OWM('<keygoeshere>')
 "The object to interact with OWM API"
 
 owm_error_message = ''
